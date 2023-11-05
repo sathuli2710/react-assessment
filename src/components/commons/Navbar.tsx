@@ -3,6 +3,7 @@ import Hamburger from "./HamBurger";
 import { useState } from "react";
 import Avatar from "./Avatar";
 import "./Navbar.css";
+import { useLocation } from "react-router-dom";
 
 type NavbarLinkProps = {
   label: string;
@@ -35,11 +36,17 @@ const NavbarLinkComp = ({
   navbarLinks: NavbarLinkProps[];
   className?: string;
 }) => {
+  const location = useLocation();
+  console.log("dhbvd", location.pathname);
   return (
     <ul className={`${className} items-center gap-x-6`}>
       {navbarLinks.map((navLink) => (
         <li
-          className="uppercase font-bold hover:text-green-400"
+          className={`uppercase font-bold hover:text-green-400 ${
+            location?.pathname === navLink?.path
+              ? "text-green-400 pointer-events-none"
+              : "text-white"
+          }`}
           key={navLink?.label}
         >
           <a
